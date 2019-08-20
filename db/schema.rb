@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_174301) do
+ActiveRecord::Schema.define(version: 2019_08_20_121702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "dogs", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "house_id", null: false
+    t.index ["house_id"], name: "index_dogs_on_house_id"
+  end
+
+  create_table "houses", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "toys", force: :cascade do |t|
@@ -25,4 +31,5 @@ ActiveRecord::Schema.define(version: 2019_08_19_174301) do
     t.string "color", null: false
   end
 
+  add_foreign_key "dogs", "houses"
 end
